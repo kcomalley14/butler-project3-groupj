@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run zillow-app.py
+web: streamlit run zillow-app.py

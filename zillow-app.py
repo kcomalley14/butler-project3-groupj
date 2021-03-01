@@ -5,7 +5,7 @@ import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
-st.header("Welcome Home Value Estimator")
+st.header("Home Value Estimator")
 st.subheader('''
     Directions for the page here:
         1. We have a dashboard for our PowerBI info

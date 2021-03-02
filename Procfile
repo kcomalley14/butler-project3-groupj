@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run zillow-app.py
+web: sh setup.sh && streamlit run --server.port $PORT zillow-app.py

@@ -12,4 +12,4 @@ st.subheader('''
         2. Data preprocessing and predictions for home values
     ''')
 
-options = st.selectbox('Please Select',['PowerBI', 'Preprocessing & Predictions'])
+options = st.selectbox('Please Select',['PowerBI Dashboard', 'Preprocessing & Predictions'])

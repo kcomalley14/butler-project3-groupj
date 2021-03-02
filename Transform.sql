@@ -1,13 +1,21 @@
-select * from "ZillowData" limit 10
+select * from "ZillowData"
+ where "State" <>  'in'
+ 
+delete from "ZillowData"
+ where "State" <>  'in'
+ 
+ select * from "ZillowData"
+ where "State" = 'in'
 
 
 ALTER TABLE "ZillowData" 
 renanme  COLUMN "0" to "HomeValue";
 
-
-ALTER TABLE "ZillowData"
-ren COLUMN "0" [SET DATA] TYPE money;
-
-
+ALTER TABLE public."ZillowData"
+    ALTER COLUMN "RegionName" TYPE text;
+	
+ 
 ALTER TABLE "ZillowData" 
-renanme  COLUMN "filed_9" to "date";
+rename  COLUMN "filed_9" to "DateValue";
+
+ 

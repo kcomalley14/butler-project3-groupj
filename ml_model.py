@@ -49,21 +49,21 @@ print(county_dict['CountyCode'])
 y = df_onehot['HomeValue'].values.reshape(-1, 1)
 X = df_onehot[['CountyName', 'ValueDate']]
 
-# Xscaler = StandardScaler()
-# Xscaler = Xscaler.fit(X)
-# Xscaled = Xscaler.transform(X)
+Xscaler = StandardScaler()
+Xscaler = Xscaler.fit(X)
+Xscaled = Xscaler.transform(X)
 
-# yscaler = StandardScaler()
-# yscaler = yscaler.fit(y)
-# yscaled = yscaler.transform(y)
+yscaler = StandardScaler()
+yscaler = yscaler.fit(y)
+yscaled = yscaler.transform(y)
 
-# X_train, X_test, y_train, y_test = train_test_split(Xscaled, yscaled, test_size=0.33)
+X_train, X_test, y_train, y_test = train_test_split(Xscaled, yscaled, test_size=0.33)
 
 
-# lin_reg = LinearRegression()
-# lin_reg.fit(X_train, y_train)
-# pickle.dump(lin_reg, open('zillow-ml.pkl','wb'))
+lin_reg = LinearRegression()
+lin_reg.fit(X_train, y_train)
+pickle.dump(lin_reg, open('zillow-ml.pkl','wb'))
 
-# score = lin_reg.score(X_train, y_train)
-# predict = lin_reg.predict(X)
-# print(f"Score = {score}")
+score = lin_reg.score(X_train, y_train)
+predict = lin_reg.predict(X)
+print(f"Score = {score}")

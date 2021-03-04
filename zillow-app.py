@@ -20,7 +20,6 @@ st.subheader('''
 options = st.selectbox('Please Select',['PowerBI Dashboard', 'Preprocessing & Predictions: Indiana', 'Preprocessing & Prediction: Midwest'])
 
 if options == 'PowerBI Dashboard':
-    
     st.markdown("""
         <iframe width="600" height="606" src="https://public.tableau.com/views/CitiBike_Data/Story1?:language=en&:display_count=y&:origin=viz_share_link" frameborder="0" style="border:0" allowfullscreen></iframe>
         """, unsafe_allow_html=True)

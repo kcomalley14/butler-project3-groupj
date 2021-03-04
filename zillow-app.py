@@ -4,8 +4,6 @@ import numpy as np
 import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-import os
-import psycopg2
 
 st.header("Home Value Estimator")
 st.subheader('''

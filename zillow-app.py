@@ -16,5 +16,8 @@ st.subheader('''
 options = st.selectbox('Please Select',['PowerBI Dashboard', 'Preprocessing & Predictions'])
 
 if options == 'PowerBI Dashboard':
-    st.markdown("https://app.powerbi.com/reportEmbed?reportId=098732ca-c993-4eda-a158-ffa14d2d7b55&autoAuth=true&ctid=8dacabf7-f04d-4b21-b6e9-4a866700c6fd&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXVzLWNlbnRyYWwtYS1wcmltYXJ5LXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0LyJ9", unsafe_allow_html=True)
+    # st.markdown("https://app.powerbi.com/reportEmbed?reportId=098732ca-c993-4eda-a158-ffa14d2d7b55&autoAuth=true&ctid=8dacabf7-f04d-4b21-b6e9-4a866700c6fd&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXVzLWNlbnRyYWwtYS1wcmltYXJ5LXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0LyJ9", unsafe_allow_html=True)
     
+    st.markdown("""
+        <iframe width="600" height="606" src="https://app.powerbi.com/reportEmbed?reportId=098732ca-c993-4eda-a158-ffa14d2d7b55&autoAuth=true&ctid=8dacabf7-f04d-4b21-b6e9-4a866700c6fd&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXVzLWNlbnRyYWwtYS1wcmltYXJ5LXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0LyJ9" frameborder="0" style="border:0" allowfullscreen></iframe>
+        """, unsafe_allow_html=True)

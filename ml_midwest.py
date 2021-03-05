@@ -6,7 +6,6 @@ from sklearn.linear_model import LinearRegression
 import pickle
 import psycopg2
 import os
-from sqlalchemy import create_engine
 from sklearn import preprocessing
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.linear_model import LinearRegression

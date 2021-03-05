@@ -6,7 +6,6 @@ from sklearn.linear_model import LinearRegression
 import pickle
 import psycopg2
 import os
-from sqlalchemy import create_engine
 from sklearn import preprocessing
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.linear_model import LinearRegression
@@ -21,7 +20,7 @@ cursor.execute ('SELECT * FROM "ZillowINData";')
 df = DataFrame(cursor.fetchall())
 df.columns = ['ZIP', 'State', 'City', 'Metro', 'CountyName', 'ValueDate','HomeValue']
 
-df_updated = df.drop(['ZIP', 'State', 'City', 'Metro'], axis=1)
+df_updated = df.drop(['State', 'Metro'], axis=1)
 # df_updated = df.drop(['HomeValue'])
 # df.drop(['Metro'], axis=1)
 # print(df_updated)
@@ -42,12 +41,18 @@ county_merged = pd.concat([county_name, county_encoded], axis=1)
 county_merged.columns = ['CountyName', 'CountyCode']
 county_merged = county_merged.set_index(['CountyName'])
 county_dict = county_merged.to_dict()
+county_dict = county_dict['CountyCode']
 
+data_list = list(county_dict.items())
+data = np.array(data_list)
+
+# print(county_merged)
 # print(county_dict['CountyCode'])
 # print(df_onehot)
 
 y = df_onehot['HomeValue'].values.reshape(-1, 1)
-X = df_onehot[['CountyName', 'ValueDate']]
+# X = df_onehot[['ZIP', 'CountyName', 'ValueDate', 'City']]
+X = df_onehot[['ZIP', 'ValueDate', 'City', 'CountyName']]
 
 Xscaler = StandardScaler()
 Xscaler = Xscaler.fit(X)
@@ -62,8 +67,8 @@ X_train, X_test, y_train, y_test = train_test_split(Xscaled, yscaled, test_size=
 
 lin_reg = LinearRegression()
 lin_reg.fit(X_train, y_train)
-pickle.dump(lin_reg, open('zillow-ml.pkl','wb'))
+# pickle.dump(lin_reg, open('zillow-ml.pkl','wb'))
 
 score = lin_reg.score(X_train, y_train)
 predict = lin_reg.predict(X)
-print(f"Score = {score}")
+# print(f"Score = {score}")

@@ -21,7 +21,7 @@ cursor.execute ('SELECT * FROM "ZillowMWData";')
 df_mw = DataFrame(cursor.fetchall())
 df_mw.columns = ['ZIP', 'State', 'City', 'Metro', 'CountyName', 'ValueDate','HomeValue']
 
-df_updated_mw = df_mw.drop(['ZIP', 'State', 'City', 'Metro'], axis=1)
+df_updated_mw = df_mw.drop(['ZIP', 'State', 'Metro'], axis=1)
 # df_updated = df.drop(['HomeValue'])
 # df.drop(['Metro'], axis=1)
 # print(df_updated)
@@ -47,7 +47,7 @@ county_dict_mw = county_merged_mw.to_dict()
 # print(df_onehotmw)
 
 y = df_onehotmw['HomeValue'].values.reshape(-1, 1)
-X = df_onehotmw[['CountyName', 'ValueDate']]
+X = df_onehotmw[['CountyName', 'ValueDate', 'City']]
 
 Xscaler = StandardScaler()
 Xscaler = Xscaler.fit(X)

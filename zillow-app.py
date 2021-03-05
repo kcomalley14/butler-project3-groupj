@@ -33,7 +33,7 @@ elif options == 'Preprocessing & Predictions: Indiana':
     st.write(df.head())
     def user_input_features():
         # county_input = st.sidebar.selectbox("CountyName", county_dict['CountyCode'])
-        county_input = st.sidebar.selectbox("CountyName", [county_dict])
+        county_input = st.sidebar.selectbox("CountyName", [county_dict["CountyCode"]])
 
     st.sidebar.subheader("User Input Parameters")
     df_params = user_input_features()

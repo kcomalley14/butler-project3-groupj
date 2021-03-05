@@ -43,7 +43,7 @@ county_merged_mw.columns = ['CountyName', 'CountyCode']
 county_merged_mw = county_merged_mw.set_index(['CountyName'])
 county_dict_mw = county_merged_mw.to_dict()
 
-print(county_dict_mw['CountyCode'])
+# print(county_dict_mw['CountyCode'])
 # print(df_onehotmw)
 
 y = df_onehotmw['HomeValue'].values.reshape(-1, 1)

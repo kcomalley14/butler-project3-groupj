@@ -45,11 +45,15 @@ county_dict_mw = county_dict_mw['CountyCode']
 
 data_list_mw = list(county_dict_mw.items())
 data_mw = np.array(data_list_mw)
-print(data_mw)
+
+dates_mw = df_mw["ValueDate"]
+dates_mw = list(dates_mw)
+
+zip_list_mw = list(df_mw["Zip"])
 # print(df_onehotmw)
 
 y = df_onehotmw['HomeValue'].values.reshape(-1, 1)
-X = df_onehotmw[['Zip', 'CountyName', 'ValueDate', 'City']]
+X = df_onehotmw[['Zip', 'CountyName', 'ValueDate']]
 
 Xscaler = StandardScaler()
 Xscaler = Xscaler.fit(X)

@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from ml_model import df_updated, county_dict, data
+from ml_model import df_updated, county_dict, data, dates
 from ml_midwest import df_updated_mw, county_dict_mw, data_mw
 
 
@@ -38,7 +38,11 @@ elif options == 'Preprocessing & Predictions: Indiana':
     def user_input_features():
         # county_input = st.sidebar.selectbox("CountyName", county_dict['CountyCode'])
         county_input = st.sidebar.selectbox("CountyName", data)
-
+        dates_input = st.sidebar.text_input("Date - YYYYMM (ex. 201410)")
+        zip_input = st.sidebar.text_input("Zip")
+        df = {'county_input': county_input, "dates": dates_input, "zip": zip_input}
+        features = pd.DataFrame(df)
+        return features
     st.sidebar.subheader("User Input Parameters")
     df_params = user_input_features()
 
@@ -57,8 +61,10 @@ else:
     def user_input_features():
         # county_input = st.sidebar.selectbox("CountyName", county_dict['CountyCode'])
         county_input = st.sidebar.selectbox("CountyName", data_mw)
+        dates_input = st.sidebar.text_input("Date - YYYYMM (ex. 201410)")
+        zip_input = st.sidebar.text_input("Zip")
         # year_input = st.sidebar.
-        dfmw = {'county_input': county_input}
+        dfmw = {'county_input': county_input, 'dates': dates_input, 'zip': zip_input}
         features_mw = pd.DataFrame(dfmw)
         return features_mw
     st.sidebar.subheader("User Input Parameters")

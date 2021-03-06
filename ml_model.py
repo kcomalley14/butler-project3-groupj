@@ -18,7 +18,7 @@ cursor = conn.cursor()
 cursor.execute ('SELECT * FROM "ZillowINData";')
 # Fetch result
 df = DataFrame(cursor.fetchall())
-df.columns = ['ZIP', 'State', 'City', 'Metro', 'CountyName', 'ValueDate','HomeValue']
+df.columns = ['Zip', 'State', 'City', 'Metro', 'CountyName', 'ValueDate','HomeValue']
 
 df_updated = df.drop(['State', 'Metro'], axis=1)
 # df_updated = df.drop(['HomeValue'])
@@ -46,13 +46,20 @@ county_dict = county_dict['CountyCode']
 data_list = list(county_dict.items())
 data = np.array(data_list)
 
-print(data)
+dates = df["ValueDate"]
+dates = list(dates)
+
+zip_list = list(df["Zip"])
+
+# print(dates)
+
+# print(data)
 # print(county_dict['CountyCode'])
 # print(df_onehot)
 
 y = df_onehot['HomeValue'].values.reshape(-1, 1)
 # X = df_onehot[['ZIP', 'CountyName', 'ValueDate', 'City']]
-X = df_onehot[['ZIP', 'ValueDate', 'City', 'CountyName']]
+X = df_onehot[['Zip', 'ValueDate', 'CountyName']]
 
 Xscaler = StandardScaler()
 Xscaler = Xscaler.fit(X)
@@ -70,5 +77,8 @@ lin_reg.fit(X_train, y_train)
 # pickle.dump(lin_reg, open('zillow-ml.pkl','wb'))
 
 score = lin_reg.score(X_train, y_train)
-predict = lin_reg.predict(X)
+predict = lin_reg.predict(X_test)
+predict_unscaled = yscaler.inverse_transform(predict)
 # print(f"Score = {score}")
+print(predict)
+print(predict_unscaled)

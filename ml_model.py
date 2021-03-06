@@ -46,7 +46,7 @@ county_dict = county_dict['CountyCode']
 data_list = list(county_dict.items())
 data = np.array(data_list)
 
-# print(county_merged)
+print(data)
 # print(county_dict['CountyCode'])
 # print(df_onehot)
 

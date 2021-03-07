@@ -42,7 +42,7 @@ elif options == 'Preprocessing & Predictions: Indiana':
         zip_input = st.sidebar.text_input("Zip")
         df = {'county_input': county_input, "dates": dates_input, "zip": zip_input}
         features = pd.DataFrame(df)
-        return df_in, [[county_input[-1], dates_input, zip_input]]
+        return df, [[county_input[-1], dates_input, zip_input]]
     
     st.sidebar.subheader("User Input Parameters")
     df_params, params = user_input_features()

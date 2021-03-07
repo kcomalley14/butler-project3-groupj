@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from ml_model import df_updated, county_dict, data, dates
+from ml_model import df_updated, county_dict, data
 from ml_midwest import df_updated_mw, county_dict_mw, data_mw
 
 
@@ -18,7 +18,7 @@ st.subheader('''
         3. Data preprocessing and predictions for home values for the Midwest
     ''')
 
-options = st.selectbox('Please Select',['Tableau Dashboard', 'Preprocessing & Predictions: Indiana', 'Preprocessing & Prediction: Midwest'])
+options = st.selectbox('Please Select',['Tableau Dashboard', 'Preprocessing & Predictions: Indiana', 'Preprocessing & Predictions: Midwest'])
 
 if options == 'Tableau Dashboard':
     # st.components.v1.iframe("https://public.tableau.com/views/DallasSnowfall/Snowfall?:language=en&:display_count=y&mobile=&:origin=viz_share_link")
@@ -42,20 +42,33 @@ elif options == 'Preprocessing & Predictions: Indiana':
         zip_input = st.sidebar.text_input("Zip")
         df = {'county_input': county_input, "dates": dates_input, "zip": zip_input}
         features = pd.DataFrame(df)
-        return features
+        return df_in, [[county_input[-1], dates_input, zip_input]]
+    
     st.sidebar.subheader("User Input Parameters")
-    df_params = user_input_features()
+    df_params, params = user_input_features()
 
-    st.subheader("Statistical Home Value Data")
+    st.subheader("Home Value Data")
     st.write(df_updated.info())
     st.write(df.describe())
 
     st.subheader("User Input Parameters")
-    st.write(df_params)
-
+    
     load_zillowml = pickle.load(open('zillow-ml.pkl','rb'))
+    load_Xscaler_in = pickle.load(open('Xscaler-in.pkl','rb'))
+    load_yscaler_in = pickle.load(open('yscaler-in.pkl','rb'))
+    try:
+        scaled_X = load_Xscaler_in.transform(params)
+        scaled_pred = load_zillowml.predict(scaled_X)
+        unscaled_pred = load_yscaler_in.inverse_transform(scaled_pred)
+        df_params['predictions'] = unscaled_pred.ravel().tolist()
 
-else:
+        st.write(df_params)
+    except:
+        st.write("Enter Parameters")
+
+    
+
+elif options == 'Preprocessing & Predictions: Midwest':
     df_mw = df_updated_mw
     st.write(df_mw.head())
     def user_input_features():
@@ -63,22 +76,34 @@ else:
         county_input = st.sidebar.selectbox("CountyName", data_mw)
         dates_input = st.sidebar.text_input("Date - YYYYMM (ex. 201410)")
         zip_input = st.sidebar.text_input("Zip")
-        # year_input = st.sidebar.
         dfmw = {'county_input': county_input, 'dates': dates_input, 'zip': zip_input}
         features_mw = pd.DataFrame(dfmw)
-        return features_mw
+        return dfmw, [[county_input[-1], dates_input, zip_input]]
+    
     st.sidebar.subheader("User Input Parameters")
-    df_params_mw = user_input_features()
+    df_params_mw, params_mw = user_input_features()
 
-    st.write(df_updated_mw.info())
+    st.subheader("Home Value Data")
+    # st.write(df_updated_mw.info())
     st.write(df_mw.describe())
 
     st.subheader("User Input Parameters")
-    st.write(df_params_mw)
 
     load_mwzillow = pickle.load(open('zillowmw-ml.pkl','rb'))
-    prediction = load_mwzillow.predict(df_params_mw)
-    prediction_proba = load_mwzillow.predict_proba(df_params_mw)
+    load_Xscaler_mw = pickle.load(open('Xscaler-mw.pkl','rb'))
+    load_yscaler_mw = pickle.load(open('yscaler-mw.pkl','rb'))
+    try:
+        scaled_X_mw = load_Xscaler_mw.transform(params_mw)
+        scaled_pred_mw = load_mwzillow.predict(scaled_X_mw)
+        unscaled_pred_mw = load_yscaler_mw.inverse_transform(scaled_pred_mw)
+        df_params_mw['predictions'] = unscaled_pred_mw.ravel().tolist()
+        st.write(df_params_mw)
+    except:
+        st.write("Enter Paramaters")
 
-    st.subheader('Prediction Probability')
-    st.write('predict_proba')
+    
+    
+
+    
+    
+

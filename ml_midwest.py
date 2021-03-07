@@ -46,12 +46,6 @@ county_dict_mw = county_dict_mw['CountyCode']
 data_list_mw = list(county_dict_mw.items())
 data_mw = np.array(data_list_mw)
 
-dates_mw = df_mw["ValueDate"]
-dates_mw = list(dates_mw)
-
-zip_list_mw = list(df_mw["Zip"])
-# print(df_onehotmw)
-
 y = df_onehotmw['HomeValue'].values.reshape(-1, 1)
 X = df_onehotmw[['Zip', 'CountyName', 'ValueDate']]
 
@@ -69,7 +63,10 @@ X_train, X_test, y_train, y_test = train_test_split(Xscaled, yscaled, test_size=
 lin_regmw = LinearRegression()
 lin_regmw.fit(X_train, y_train)
 pickle.dump(lin_regmw, open('zillowmw-ml.pkl','wb'))
+pickle.dump(Xscaler, open('Xscaler-mw.pkl','wb'))
+pickle.dump(yscaler, open('yscaler-mw.pkl','wb'))
 
 score = lin_regmw.score(X_train, y_train)
-predict = lin_regmw.predict(X)
-print(f"Score = {score}")
+predict = lin_regmw.predict(X_test)
+# print(f"Score = {score}")
+# print(predict)

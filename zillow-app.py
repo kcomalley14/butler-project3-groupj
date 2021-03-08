@@ -47,7 +47,7 @@ elif options == 'Preprocessing & Predictions: Indiana':
     st.subheader("Home Value Data")
     st.write(df.describe())
 
-    st.subheader("User Input Parameters")
+    st.subheader("Prediction")
     
     load_zillowml = pickle.load(open('zillow-ml.pkl','rb'))
     load_Xscaler_in = pickle.load(open('Xscaler-in.pkl','rb'))
@@ -83,7 +83,7 @@ elif options == 'Preprocessing & Predictions: Midwest':
     # st.write(df_updated_mw.info())
     st.write(df_mw.describe())
 
-    st.subheader("User Input Parameters")
+    st.subheader("Prediction")
 
     load_mwzillow = pickle.load(open('zillowmw-ml.pkl','rb'))
     load_Xscaler_mw = pickle.load(open('Xscaler-mw.pkl','rb'))
